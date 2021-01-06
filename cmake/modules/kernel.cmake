@@ -216,6 +216,34 @@ add_custom_target(zephyr_property_target)
 zephyr_library_named(app)
 set_property(TARGET app PROPERTY ARCHIVE_OUTPUT_DIRECTORY app)
 
+
+# emit llvm ir instead of asm on the app target only --> kernel will be build
+# normally
+target_compile_options(app PRIVATE -emit-llvm -S)
+
+# the actual linker call happens in the /scripts/link-ll.py script because
+# $<TARGET_OBJECTS:app> can not be unpacked in direct commands for some reason
+add_custom_command(
+	TARGET app
+	POST_BUILD
+	COMMAND ${PYTHON_EXECUTABLE}
+	${ZEPHYR_BASE}/scripts/link-ll.py
+	-o app/libapp.ll
+	$<TARGET_OBJECTS:app>
+	BYPRODUCTS app/libapp.ll
+	VERBATIM
+)
+
+# compile the linked llvm ir and continue with the normal build process.
+add_custom_command(
+	TARGET app
+	POST_BUILD
+	COMMAND llc-9 --filetype=obj -o app/libapp.a app/libapp.ll
+	VERBATIM
+)
+
+
+
 add_subdirectory(${ZEPHYR_BASE} ${__build_dir})
 
 # Link 'app' with the Zephyr interface libraries.

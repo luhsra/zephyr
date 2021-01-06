@@ -218,7 +218,9 @@ def wrapper_defs(func_name, func_type, args, fn, userspace_only):
         wrap += "\n"
 
     wrap += "__pinned_func\n"
-    wrap += "static inline %s %s(%s)\n" % (func_type, func_name, decl_arglist)
+    # wrap += "static inline %s %s(%s)\n" % (func_type, func_name, decl_arglist)
+    # This should not be needed since we build with -O0, just to make sure
+    wrap += "static __attribute__((optnone)) %s %s(%s)\n" % (func_type, func_name, decl_arglist)
     wrap += "{\n"
     if not userspace_only:
         wrap += "#ifdef CONFIG_USERSPACE\n"
