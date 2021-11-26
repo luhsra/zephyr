@@ -31,6 +31,8 @@ find_program(CMAKE_READELF NAMES
                            llvm-readelf-${CLANGVER}
                            readelf
                            ${find_program_binutils_args})
+find_program(CMAKE_LLC llc)
+find_program(CMAKE_LLVM_LINK llvm-link)
 
 # Use the gnu binutil abstraction
 include(${ZEPHYR_BASE}/cmake/bintools/llvm/target_bintools.cmake)

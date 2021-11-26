@@ -228,6 +228,7 @@ add_custom_command(
 	POST_BUILD
 	COMMAND ${PYTHON_EXECUTABLE}
 	${ZEPHYR_BASE}/scripts/link-ll.py
+	--llvm_link ${CMAKE_LLVM_LINK}
 	-o app/libapp.ll
 	$<TARGET_OBJECTS:app>
 	BYPRODUCTS app/libapp.ll
@@ -238,7 +239,7 @@ add_custom_command(
 add_custom_command(
 	TARGET app
 	POST_BUILD
-	COMMAND llc-9 --filetype=obj -o app/libapp.a app/libapp.ll
+	COMMAND ${CMAKE_LLC} --filetype=obj -o app/libapp.a app/libapp.ll
 	VERBATIM
 )
 
