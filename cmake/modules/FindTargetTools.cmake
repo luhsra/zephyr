@@ -91,8 +91,9 @@ endif()
 # The 'generic' compiler and the 'target' compiler might be different,
 # so we unset the 'generic' one and thereby force the 'target' to
 # re-set it.
-unset(CMAKE_C_COMPILER)
-unset(CMAKE_C_COMPILER CACHE)
+# ARA_MOD: We want to manual provide CMAKE_C_COMPILER and CMAKE_CXX_COMPILER from outside:
+#unset(CMAKE_C_COMPILER)
+#unset(CMAKE_C_COMPILER CACHE)
 
 # A toolchain consist of a compiler and a linker.
 # In Zephyr, toolchains require a port under cmake/toolchain/.

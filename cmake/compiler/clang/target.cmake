@@ -15,8 +15,9 @@ if(DEFINED TOOLCHAIN_HOME)
   set(find_program_clang_args PATHS ${TOOLCHAIN_HOME} NO_DEFAULT_PATH)
 endif()
 
-find_program(CMAKE_C_COMPILER   clang   ${find_program_clang_args})
-find_program(CMAKE_CXX_COMPILER clang++ ${find_program_clang_args})
+# ARA_MOD: We want to manual provide CMAKE_C_COMPILER and CMAKE_CXX_COMPILER from outside:
+#find_program(CMAKE_C_COMPILER   clang   ${find_program_clang_args})
+#find_program(CMAKE_CXX_COMPILER clang++ ${find_program_clang_args})
 
 if(NOT "${ARCH}" STREQUAL "posix")
   include(${ZEPHYR_BASE}/cmake/gcc-m-cpu.cmake)
