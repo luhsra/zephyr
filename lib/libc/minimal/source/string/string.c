@@ -233,6 +233,13 @@ int memcmp(const void *m1, const void *m2, size_t n)
 
 	return *c1 - *c2;
 }
+/**
+ * WORKAROUND: we should link against compiler-rt but have only libgcc
+**/
+void *__aeabi_memclr8(void *d, size_t n)
+{
+	return memset(d, 0x00, n);
+}
 
 /**
  *
