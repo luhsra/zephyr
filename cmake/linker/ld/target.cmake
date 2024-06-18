@@ -121,7 +121,7 @@ function(toolchain_ld_link_elf)
   if((${CMAKE_LINKER} STREQUAL "${CROSS_COMPILE}ld.bfd") OR
      ${GNULD_LINKER_IS_BFD})
     # ld.bfd was found so let's explicitly use that for linking, see #32237
-    set(use_linker "-fuse-ld=bfd")
+    # set(use_linker "-fuse-ld=bfd")
   endif()
 
   target_link_libraries(
