@@ -72,7 +72,7 @@ static void int_to_interrupted_thread(uint32_t num_iterations, uint64_t *sum)
 static void start_thread_entry(void *p1, void *p2, void *p3)
 {
 	uint32_t      num_iterations = (uint32_t)(uintptr_t)p1;
-	struct k_sem *sem = p2;
+	struct k_sem *sem = &isr_sem;
 
 	ARG_UNUSED(p3);
 
@@ -105,7 +105,7 @@ static void start_thread_entry(void *p1, void *p2, void *p3)
 static void alt_thread_entry(void *p1, void *p2, void *p3)
 {
 	uint32_t      num_iterations = (uint32_t)(uintptr_t)p1;
-	struct k_sem *sem = p2;
+	struct k_sem *sem = &isr_sem;
 
 	ARG_UNUSED(p3);
 
@@ -135,13 +135,13 @@ static void int_to_another_thread(uint32_t num_iterations, uint64_t *sum,
 	k_thread_create(&start_thread, start_stack,
 			K_THREAD_STACK_SIZEOF(start_stack),
 			start_thread_entry,
-			(void *)(uintptr_t)num_iterations, &isr_sem, NULL,
+			(void *)(uintptr_t)num_iterations, NULL, NULL,
 			priority - 2, options, K_FOREVER);
 
 	k_thread_create(&alt_thread, alt_stack,
 			K_THREAD_STACK_SIZEOF(alt_stack),
 			alt_thread_entry,
-			(void *)(uintptr_t)num_iterations, &isr_sem, NULL,
+			(void *)(uintptr_t)num_iterations, NULL, NULL,
 			priority - 1, 0, K_FOREVER);
 
 #if CONFIG_USERSPACE
