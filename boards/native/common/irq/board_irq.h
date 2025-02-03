@@ -31,6 +31,7 @@ void posix_irq_priority_set(unsigned int irq, unsigned int prio,
  */
 #define ARCH_IRQ_CONNECT(irq_p, priority_p, isr_p, isr_param_p, flags_p) \
 { \
+	Z_ISR_DECLARE(irq_p, 0, isr_p, isr_param_p); \
 	posix_isr_declare(irq_p, 0, isr_p, isr_param_p); \
 	posix_irq_priority_set(irq_p, priority_p, flags_p); \
 }
