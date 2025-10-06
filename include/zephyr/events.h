@@ -167,4 +167,8 @@ int xen_events_init(void)
 	return 0;
 }
 
+void ara_timing_info(int a, int b) {
+	
+}
+
 #endif /* __XEN_EVENTS_H__ */
