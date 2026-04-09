@@ -699,20 +699,22 @@ static const struct clock_control_driver_api clock_control_esp32_api = {
 	.configure = clock_control_esp32_configure,
 };
 
-static const struct esp32_cpu_clock_config esp32_cpu_clock_config0 = {
-	.clk_src = DT_PROP(DT_INST(0, DT_CPU_COMPAT), clock_source),
-	.cpu_freq = (DT_PROP(DT_INST(0, DT_CPU_COMPAT), clock_frequency) / MHZ(1)),
-	.xtal_freq = ((DT_PROP(DT_INST(0, DT_CPU_COMPAT), xtal_freq)) / MHZ(1)),
-};
+#define ESP32_CPU_CLOCK_CONFIG0_INIT \
+	{ \
+		.clk_src = DT_PROP(DT_INST(0, DT_CPU_COMPAT), clock_source), \
+		.cpu_freq = (DT_PROP(DT_INST(0, DT_CPU_COMPAT), clock_frequency) / MHZ(1)), \
+		.xtal_freq = ((DT_PROP(DT_INST(0, DT_CPU_COMPAT), xtal_freq)) / MHZ(1)), \
+	}
 
-static const struct esp32_rtc_clock_config esp32_rtc_clock_config0 = {
-	.rtc_fast_clock_src = DT_PROP(DT_INST(0, espressif_esp32_rtc), fast_clk_src),
-	.rtc_slow_clock_src = DT_PROP(DT_INST(0, espressif_esp32_rtc), slow_clk_src),
-};
+#define ESP32_RTC_CLOCK_CONFIG0_INIT \
+	{ \
+		.rtc_fast_clock_src = DT_PROP(DT_INST(0, espressif_esp32_rtc), fast_clk_src), \
+		.rtc_slow_clock_src = DT_PROP(DT_INST(0, espressif_esp32_rtc), slow_clk_src), \
+	}
 
 static const struct esp32_clock_config esp32_clock_config0 = {
-	.cpu = esp32_cpu_clock_config0,
-	.rtc = esp32_rtc_clock_config0
+	.cpu = ESP32_CPU_CLOCK_CONFIG0_INIT,
+	.rtc = ESP32_RTC_CLOCK_CONFIG0_INIT
 };
 
 DEVICE_DT_DEFINE(DT_NODELABEL(rtc),

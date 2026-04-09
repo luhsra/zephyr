@@ -45,13 +45,13 @@ if(CONFIG_RISCV_ISA_EXT_C)
     string(CONCAT riscv_march ${riscv_march} "c")
 endif()
 
-if(CONFIG_RISCV_ISA_EXT_ZICSR)
-    string(CONCAT riscv_march ${riscv_march} "_zicsr")
-endif()
-
-if(CONFIG_RISCV_ISA_EXT_ZIFENCEI)
-    string(CONCAT riscv_march ${riscv_march} "_zifencei")
-endif()
+#if(CONFIG_RISCV_ISA_EXT_ZICSR)
+#    string(CONCAT riscv_march ${riscv_march} "_zicsr")
+#endif()
+#
+#if(CONFIG_RISCV_ISA_EXT_ZIFENCEI)
+#    string(CONCAT riscv_march ${riscv_march} "_zifencei")
+#endif()
 
 if(CONFIG_RISCV_ISA_EXT_ZBA)
     string(CONCAT riscv_march ${riscv_march} "_zba")
